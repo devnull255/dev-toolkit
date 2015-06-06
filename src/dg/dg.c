@@ -11,7 +11,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include <getopt.h>
-
+#include <datagenerator.h>
 
 int main(int argc, char **argv) {
   int c;
@@ -61,6 +61,7 @@ int main(int argc, char **argv) {
           abort();
      }
   }
+  printf("%d\n",randint(100));
   exit(0);
 }
 
