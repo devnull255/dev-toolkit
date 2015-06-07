@@ -1,15 +1,24 @@
-#include <datagenerator.h>
+#include <devtools.h>
+#include <unistd.h>
+
+
 int randint(int max_int) {
 /*********************************************************************
  * Returns a random integer from 0 to max_int
  * *******************************************************************/
 
   int i = 0;
+  static int times_called = 0;
   time_t t;
+  //sleep(1);
 
-  srand((unsigned) time(&t));
+  if (times_called == 0) {
+    time(&t);
+    srandom((unsigned)t);
+    times_called++;
+  }
 
-  i = rand() % (max_int + 1);
+  i = random() % (max_int + 1);
 
   return(i);
 } 

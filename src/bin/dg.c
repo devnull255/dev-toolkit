@@ -11,7 +11,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include <getopt.h>
-#include <datagenerator.h>
+#include <devtools.h>
 
 int main(int argc, char **argv) {
   int c;

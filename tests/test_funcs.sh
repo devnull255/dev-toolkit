@@ -7,6 +7,11 @@ test_module() {
   else
     echo "$1 failed."
   fi
+  echo
 }
 
 test_module tests/test_randint
+test_module tests/test_randchar
+test_module tests/test_mkalpha
+test_module tests/test_mknumeric
+test_module tests/test_mkalphanum

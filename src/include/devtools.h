@@ -1,5 +1,5 @@
 /*********************************************************
- * datagenerator.h
+ * devtools.h
  *
  * contains prototypes and declarations for the datagenerator
  * library.
@@ -10,4 +10,8 @@
 #include <stdio.h>
 
 int randint(int max_int);
-char randchar(void);
+char randalpha(void);
+char *mkalpha(int len);
+char *mkalphanum(int len);
+char *mknumeric(int len);
+
