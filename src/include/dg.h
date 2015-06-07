@@ -15,4 +15,6 @@ char *lastNames[] = {"Anderson","Baker","Carlson","DeCamp","Edwards",
 
 char *firstName(void);
 char *lastName(void);
+char *gen_rec(char *spec_str_list);
+
 

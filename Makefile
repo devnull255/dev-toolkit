@@ -1,7 +1,7 @@
 #makefile for datagenerator
 BDIR = bin
 LDIR = lib
-LIBS = -ldg
+LIBS = -ldevtools
 OBJECTS = $(LDIR)/randint.o $(LDIR)/randchar.o $(LDIR)/mkalpha.o $(LDIR)/mknumeric.o\
 	$(LDIR)/mkalphanum.o
 TEST_PROGS = tests/test_randint tests/test_randchar tests/test_mkalpha tests/test_mknumeric tests/test_mkalphanum
@@ -10,10 +10,13 @@ INC = $(SRC)/include
 CC = cc
 CFLAGS = -Wall -I$(INC)
 
-all: $(OBJECTS) test_programs
+all: $(OBJECTS) libdevtool test_programs
 	mkdir -p $(BDIR)
 	gcc -o $(BDIR)/dg -I$(INC) $(LDIR)/randint.o  $(SRC)/$(BDIR)/dg.c 
 
+libdevtool: $(OBJECTS)
+	mkdir -p $(LDIR)
+	ar cr $(LDIR)/libdevtools.a $(OBJECTS)
 
 $(LDIR)/randchar.o: $(SRC)/$(LDIR)/randchar.c
 	mkdir -p $(LDIR)
@@ -30,14 +33,14 @@ $(LDIR)/mknumeric.o: $(SRC)/$(LDIR)/mknumeric.c
 	gcc -c $(SRC)/$(LDIR)/mknumeric.c -I$(INC) -o $(LDIR)/mknumeric.o
 	
 $(LDIR)/mkalphanum.o: $(SRC)/$(LDIR)/mkalphanum.c
-	gcc -c $(SRC)/$(LDIR)/mkalphanum.c -I$(INC) -o $(LDIR)/mkalphanum.o
-	
+	$(CC) -c $(SRC)/$(LDIR)/mkalphanum.c -I$(INC) -o $(LDIR)/mkalphanum.o
+
 test_programs: $(OBJECTS)
-	$(CC) $(CFLAGS) -o tests/test_randint $(LDIR)/randint.o $(SRC)/tests/test_randint.c
-	$(CC) $(CFLAGS) -o tests/test_randchar $(LDIR)/randint.o $(LDIR)/randchar.o $(SRC)/tests/test_randchar.c
-	$(CC) $(CFLAGS) -o tests/test_mkalpha $(LDIR)/randint.o $(LDIR)/mkalpha.o $(LDIR)/randchar.o $(SRC)/tests/test_mkalpha.c
-	$(CC) $(CFLAGS) -o tests/test_mknumeric $(LDIR)/randint.o $(LDIR)/mknumeric.o $(SRC)/tests/test_mknumeric.c
-	$(CC) $(CFLAGS) -o tests/test_mkalphanum $(LDIR)/randint.o $(LDIR)/randchar.o $(LDIR)/mkalphanum.o  $(SRC)/tests/test_mkalphanum.c
+	$(CC) $(CFLAGS) -o tests/test_randint $(SRC)/tests/test_randint.c -L$(LDIR) $(LIBS) 
+	$(CC) $(CFLAGS) -o tests/test_randchar $(SRC)/tests/test_randchar.c -L$(LDIR) $(LIBS) 
+	$(CC) $(CFLAGS) $(SRC)/tests/test_mkalpha.c -L$(LDIR) $(LIBS) -o tests/test_mkalpha 
+	$(CC) $(CFLAGS) $(SRC)/tests/test_mknumeric.c -L$(LDIR) $(LIBS) -o tests/test_mknumeric 
+	$(CC) $(CFLAGS) $(SRC)/tests/test_mkalphanum.c -L$(LDIR) $(LIBS) -o tests/test_mkalphanum 
 
 alltests: 
 	tests/test_funcs.sh
@@ -46,4 +49,4 @@ clean:
 	rm $(TEST_PROGS)
 	rm -rf $(LDIR)
 	rm -rf $(BDIR)
-	find . -name '*.o' -exec rm -rf "{}" \;
+	
