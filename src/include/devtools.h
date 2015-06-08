@@ -8,7 +8,7 @@
 #include <stdlib.h>
 #include <time.h>
 #include <stdio.h>
-
+#include <unistd.h>
 int randint(int max_int);
 char randalpha(void);
 char *mkalpha(int len);

@@ -10,9 +10,9 @@ INC = $(SRC)/include
 CC = cc
 CFLAGS = -Wall -I$(INC)
 
-all: $(OBJECTS) libdevtool test_programs
+all: $(OBJECTS) 
 	mkdir -p $(BDIR)
-	gcc -o $(BDIR)/dg -I$(INC) $(LDIR)/randint.o  $(SRC)/$(BDIR)/dg.c 
+	$(CC) -o $(BDIR)/dg -I$(INC) $(LDIR)/randint.o  $(SRC)/$(BDIR)/dg.c 
 
 libdevtool: $(OBJECTS)
 	mkdir -p $(LDIR)
@@ -20,17 +20,17 @@ libdevtool: $(OBJECTS)
 
 $(LDIR)/randchar.o: $(SRC)/$(LDIR)/randchar.c
 	mkdir -p $(LDIR)
-	gcc -c $(SRC)/$(LDIR)/randchar.c -I$(INC) -o $(LDIR)/randchar.o  
+	$(CC) -c $(SRC)/$(LDIR)/randchar.c -I$(INC) -o $(LDIR)/randchar.o  
 
 $(LDIR)/randint.o: $(SRC)/$(LDIR)/randint.c
 	mkdir -p $(LDIR)
-	gcc -c $(SRC)/$(LDIR)/randint.c -I$(INC) -o $(LDIR)/randint.o
+	$(CC) -c $(SRC)/$(LDIR)/randint.c -I$(INC) -o $(LDIR)/randint.o
 
 $(LDIR)/mkalpha.o: $(SRC)/$(LDIR)/mkalpha.c
-	gcc -c $(SRC)/$(LDIR)/mkalpha.c -I$(INC) -o $(LDIR)/mkalpha.o
+	$(CC) -c $(SRC)/$(LDIR)/mkalpha.c -I$(INC) -o $(LDIR)/mkalpha.o
 	
 $(LDIR)/mknumeric.o: $(SRC)/$(LDIR)/mknumeric.c
-	gcc -c $(SRC)/$(LDIR)/mknumeric.c -I$(INC) -o $(LDIR)/mknumeric.o
+	$(CC) -c $(SRC)/$(LDIR)/mknumeric.c -I$(INC) -o $(LDIR)/mknumeric.o
 	
 $(LDIR)/mkalphanum.o: $(SRC)/$(LDIR)/mkalphanum.c
 	$(CC) -c $(SRC)/$(LDIR)/mkalphanum.c -I$(INC) -o $(LDIR)/mkalphanum.o

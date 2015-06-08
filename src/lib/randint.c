@@ -1,6 +1,4 @@
 #include <devtools.h>
-#include <unistd.h>
-
 
 int randint(int max_int) {
 /*********************************************************************
