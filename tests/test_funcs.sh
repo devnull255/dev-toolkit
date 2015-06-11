@@ -15,3 +15,5 @@ test_module tests/test_randchar
 test_module tests/test_mkalpha
 test_module tests/test_mknumeric
 test_module tests/test_mkalphanum
+test_module tests/test_split
+test_module tests/test_strllen
