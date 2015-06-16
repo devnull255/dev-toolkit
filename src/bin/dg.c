@@ -72,7 +72,37 @@ int main(int argc, char **argv) {
   exit(0);
 }
 
-char *gen_rec(char *spec_str_list) {
+char *gen_rec(char *spec_list_str) {
 //return a generated string based on the spec_str_list
- return "gen_rec stub";
+  char **spec_list = split(spec_list_str,",");
+  char **fields;
+  int len = strllen(spec_list);
+  fields = malloc((sizeof char*) * len + 1);
+  int num_chars = 0;
+  char **spec_ent = NULL;
+  int cmpres = -1;
+  for (int i = 0; i < len; i++) {
+      if (strstr(spec_list[i],"numeric") != NULL) {
+           spec_ent = split(spec_list[i],":");
+           num_chars = atoi(spec_ent[1]);
+           fields[i] = mknumeric(num_chars);
+      }
+      if (strstr(spec_list[i],"alpha") != NULL ) { 
+           spec_ent = split(spec_list[i],":");
+           num_chars = atoi(spec_ent[1]);
+           fields[i] = mkalpha(num_chars);
+      }
+      if (strstr(spec_list[i],"alphanumeric") != NULL ) { 
+           spec_ent = split(spec_list[i],":");
+           num_chars = atoi(spec_ent[1]);
+           fields[i] = mkalphanum(num_chars);
+      }
+      if (strcmp(spec_list[i],"lastName") == 0)
+         fields[i] = randomString(lastNames);
+      if (strcmp(spec_list[i],"firstName") == 0)
+         fields[i] = randomString(firstNames);
+      
+   }
+   return join(fields,"|");
 }
+         
