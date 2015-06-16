@@ -19,4 +19,5 @@ char **split(char *s,char *delim);
 int strllen(char **sl);
 char *join(char **strlist,char *sep);
 int inlist(char *str,char **list);
+char *randomstring(char **list);
 
