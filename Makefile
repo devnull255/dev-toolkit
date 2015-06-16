@@ -3,8 +3,8 @@ BDIR = bin
 LDIR = lib
 LIBS = -ldevtools
 OBJECTS = $(LDIR)/randint.o $(LDIR)/randchar.o $(LDIR)/mkalpha.o $(LDIR)/mknumeric.o\
-	$(LDIR)/mkalphanum.o $(LDIR)/split.o $(LDIR)/strllen.o
-TEST_PROGS = tests/test_randint tests/test_randchar tests/test_mkalpha tests/test_mknumeric tests/test_mkalphanum tests/test_split tests/test_strllen
+	$(LDIR)/mkalphanum.o $(LDIR)/split.o $(LDIR)/strllen.o $(LDIR)/inlist.o
+TEST_PROGS = tests/test_randint tests/test_randchar tests/test_mkalpha tests/test_mknumeric tests/test_mkalphanum tests/test_split tests/test_strllen tests/test_inlist
 SRC = src
 INC = $(SRC)/include
 CC = cc
@@ -45,6 +45,10 @@ $(LDIR)/strllen.o: $(SRC)/$(LDIR)/strllen.c
 	mkdir -p $(LDIR)
 	$(CC) -c $(SRC)/$(LDIR)/strllen.c -I$(INC) -o $(LDIR)/strllen.o
 
+$(LDIR)/inlist.o: $(SRC)/$(LDIR)/inlist.c
+	mkdir -p $(LDIR)
+	$(CC) -c $(SRC)/$(LDIR)/inlist.c -I$(INC) -o $(LDIR)/inlist.o
+
 test_programs: $(OBJECTS)
 	$(CC) $(CFLAGS) -o tests/test_randint $(SRC)/tests/test_randint.c -L$(LDIR) $(LIBS) 
 	$(CC) $(CFLAGS) -o tests/test_randchar $(SRC)/tests/test_randchar.c -L$(LDIR) $(LIBS) 
@@ -54,6 +58,7 @@ test_programs: $(OBJECTS)
 	$(CC) $(CFLAGS) $(SRC)/tests/test_mkalphanum.c -L$(LDIR) $(LIBS) -o tests/test_mkalphanum 
 	$(CC) $(CFLAGS) $(SRC)/tests/test_split.c -L$(LDIR) $(LIBS) -o tests/test_split 
 	$(CC) $(CFLAGS) $(SRC)/tests/test_strllen.c -L$(LDIR) $(LIBS) -o tests/test_strllen
+	$(CC) $(CFLAGS) $(SRC)/tests/test_inlist.c -L$(LDIR) $(LIBS) -o tests/test_inlist
 
 alltests: 
 	tests/test_funcs.sh

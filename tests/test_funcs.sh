@@ -17,3 +17,4 @@ test_module tests/test_mknumeric
 test_module tests/test_mkalphanum
 test_module tests/test_split
 test_module tests/test_strllen
+test_module tests/test_inlist

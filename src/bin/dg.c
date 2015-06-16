@@ -11,7 +11,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include <getopt.h>
-#include <devtools.h>
+#include <dg.h>
 
 int main(int argc, char **argv) {
   int c;
@@ -61,7 +61,18 @@ int main(int argc, char **argv) {
           abort();
      }
   }
+  if (spec_list_string != NULL) {
+    if (number == 0 )
+      number = 10;
+    for (int i=0;i <= number; i++) {
+       printf("%s\n",gen_rec(spec_list_string));
+    }        
+  }
   printf("%d\n",randint(100));
   exit(0);
 }
 
+char *gen_rec(char *spec_str_list) {
+//return a generated string based on the spec_str_list
+ return "gen_rec stub";
+}
