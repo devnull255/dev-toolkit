@@ -10,12 +10,12 @@ INC = $(SRC)/include
 CC = cc
 CFLAGS = -Wall -I$(INC)
 
-all: $(OBJECTS) 
-	$(CC) -o $(BDIR)/dg -I$(INC) $(LDIR)/randint.o  $(SRC)/$(BDIR)/dg.c 
+all: libdevtool
+	$(CC) -o $(BDIR)/dg -I$(INC) $(SRC)/$(BDIR)/dg.c -L$(LDIR) $(LIBS) 
 
 libdevtool: $(OBJECTS)
 	mkdir -p $(LDIR)
-	ar cr $(LDIR)/libdevtools.a $(OBJECTS)
+	ar crs $(LDIR)/libdevtools.a $(OBJECTS)
 
 $(LDIR)/randchar.o: $(SRC)/$(LDIR)/randchar.c
 	mkdir -p $(LDIR)

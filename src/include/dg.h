@@ -4,7 +4,8 @@
  * constants
  * *******************************************************/
 #include <devtools.h>
-
+#ifndef __DG_H__
+#define __DG_H__
 char *firstNames[] = {"Michael","Paul","Amy","Heidi","Cheryl","David",
     "Dan","Madison","Meryl","Keegan","Foster",NULL};
 
@@ -29,6 +30,6 @@ char *specTypes[] = {"alpha",
 
 char *firstName(void);
 char *lastName(void);
-char *gen_rec(char *spec_str_list);
-
-
+char *gen_rec(char *spec_str_list,char *delim);
+char *current_ts(void);
+#endif

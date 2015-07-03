@@ -4,7 +4,8 @@
  * contains prototypes and declarations for the datagenerator
  * library.
  * *******************************************************/
-
+#ifndef __DEVTOOLS__
+#define __DEVTOOLS__
 #include <stdlib.h>
 #include <time.h>
 #include <stdio.h>
@@ -20,4 +21,4 @@ int strllen(char **sl);
 char *join(char **strlist,char *sep);
 int inlist(char *str,char **list);
 char *randomstring(char **list);
-
+#endif
