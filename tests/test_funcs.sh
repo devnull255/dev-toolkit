@@ -20,3 +20,4 @@ test_module tests/test_strllen
 test_module tests/test_inlist
 test_module tests/test_join
 test_module tests/test_randomstring
+test_module tests/test_hashtable

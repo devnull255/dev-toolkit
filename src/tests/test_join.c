@@ -16,6 +16,6 @@ int main() {
         
   printf("%s\n",join(strlist,"|"));
   char * rec = join(strlist,"|");
-  printf("length of rec is: %d\n",strlen(rec));
+  printf("length of rec is: %d\n",(int)strlen(rec));
   exit(0);
 } 
