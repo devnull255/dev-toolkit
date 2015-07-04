@@ -5,7 +5,9 @@ int main() {
 
   HASHTBL *hashtbl;
   char *spain, *italy;
-
+  char *key;
+  struct hashnode_s *entry;
+  int index;
   if (! (hashtbl = hashtbl_create(16, NULL))) {
        fprintf(stderr, "ERROR: hashtbl_create() failed\n");
         exit(EXIT_FAILURE);
@@ -23,6 +25,24 @@ int main() {
   hashtbl_insert(hashtbl, "Netherlands", "Amsterdam");
   hashtbl_insert(hashtbl, "Ireland", "Dublin");
 
+  printf("Listing keys by moving through hashtbl->nodes\n");
+ 
+  for (index = 0;index <= hashtbl->size;index++) {
+    if (hashtbl->nodes[index]) {
+        entry = hashtbl->nodes[index];
+        printf("%s\n",entry->key);
+    }
+  }
+       
+  printf("Listing keys retrieved with hashtbl_keys\n");
+  char **keys = hashtbl_keys(hashtbl);
+  char *current_key;
+  hash_size count = hashtbl_count(hashtbl);
+  printf("hashtable contains %d entries\n",count);
+  for (index = 0; index < count;index++)
+     printf("%s\n",keys[index]);
+
+       
   printf("After insert:\n");
   italy = hashtbl_get(hashtbl, "Italy");
   printf("Italy: %s\n",italy?italy:"-");

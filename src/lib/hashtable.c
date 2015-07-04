@@ -180,4 +180,36 @@ int hashtbl_resize(HASHTBL *hashtbl, hash_size size) {
      return 0;
 } 
 
+hash_size hashtbl_count(HASHTBL *hashtbl) {
+/* returns count of items in hashtbl */
+  hash_size count = 0, i = 0;
+  for (i = 0;i <= hashtbl->size;i++) 
+      if (hashtbl->nodes[i])
+         count++;
+  return count;
+}
+
+char **hashtbl_keys(HASHTBL *hashtbl) {
+  /* returns list of keys terminated by a NULL entry */
+   char **keys;
+   struct hashnode_s *current_node;  
+   int i,keycount=0;
+   hash_size count = hashtbl_count(hashtbl);
+   if (count) {
+      if (!( keys = calloc(count + 1,sizeof(char *))))
+        return NULL;
+      for (i=0;i < hashtbl->size;i++)
+         if (hashtbl->nodes[i]) {
+            current_node = hashtbl->nodes[i];
+            keys[keycount] = current_node->key;
+            keycount++;
+         }
+      keys[count] = NULL;
+      return keys;
+   }
+   else
+     return NULL;
+} 
+       
+           
 

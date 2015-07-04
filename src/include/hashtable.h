@@ -23,5 +23,8 @@ int hashtbl_insert(HASHTBL *hashtbl, const char *key, void *data);
 int hashtbl_remove(HASHTBL *hashtbl, const char *key);
 void *hashtbl_get(HASHTBL *hashtbl, const char *key);
 int hashtbl_resize(HASHTBL *hashtbl, hash_size size);
+char **hashtbl_keys(HASHTBL *hashtbl);
+void **hashtbl_values(HASHTBL *hashtbl);
+hash_size hashtbl_count(HASHTBL *hashtbl);
 
 #endif
