@@ -111,3 +111,72 @@ int hashtbl_insert(HASHTBL *hashtbl, const char *key, void *data) {
      return 0;
 }
 
+/**************************************************************************
+ * int hashtbl_remove(HASHTBL *hashtbl, const char *key)
+ * Removes an element from the hashtbl if found.
+ * Return -1 if not found.
+ * ***********************************************************************/
+int hashtbl_remove(HASHBTL *hashtbl, const char *key) {
+  
+        struct hashnode_s *node, *prevnode = NULL;
+        hash_size hash = hashtbl->hashfunc(key) % hashtbl->size;
+ 
+        node = hashtbl->nodes[hash];
+        while (node) {
+           if (!strcmp(node->key,key)) {
+                 free(node->key);
+                 if (prevnode) 
+                    prevnode->next = node->next;
+                 else
+                    hashtbl->nodes[hash] = node->next;
+                 free(node);
+                 return0;
+           }
+           prevnode = node;
+           node = node->next;
+        }
+        return -1;
+}
+
+void *hashtbl_get(HASHTBL *hashtbl,const char *key) {
+
+         struct hashnode_s *node;
+         hash_size hash = hashtbl->hashfunc(key) % hashtbl->size;
+
+/*	fprintf(stderr, "hashtbl_get() key=%s, hash=%d\n", key, hash);*/
+
+         node = hashtbl->nodes[hash];
+         while (node) {
+                if (! strcmp(node->key,key))
+                   return node->data;
+                node = node->next;
+         }
+         return NULL;
+}
+
+int hashtbl_resize(HASHTBL *hashtbl, hash_size size) {
+
+     HASHTBL newtbl;
+     hash_size n;
+     struct hashnode_s *node, *nextnode;
+
+     newbtl.size = size;
+     newtbl.hashfunc = hashtbl->hashfunc;
+
+     if (! (newtbl.nodes = calloc(size, sizeof(struct hashnode_s*))))
+        return -1;
+
+     for (n=0;n < hashtbl->size; ++n) {
+         for (node = hashtbl->nodes[n]; node;node = nextnode) {
+                nextnode = node->next;
+                hashtbl_insert(&newtbl, node->key, node->data);
+                hastbl_remove(hashtbl,node->key);
+         }
+     }
+     free(hashtbl->nodes);
+     hashtbl->size = newtbl.size;
+     hashtbl->nodes = newtbl.nodes;
+     return 0;
+} 
+
+
