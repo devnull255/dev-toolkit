@@ -27,18 +27,23 @@ int main() {
 
   printf("Listing keys by moving through hashtbl->nodes\n");
  
-  for (index = 0;index <= hashtbl->size;index++) {
+  for (index = 0;index < hashtbl->size;index++) {
     if (hashtbl->nodes[index]) {
         entry = hashtbl->nodes[index];
-        printf("%s\n",entry->key);
+        while (entry) {
+           key = entry->key;
+           printf("%s\n",entry->key);
+           entry = entry->next;
+           if (entry)
+             printf("Found key %s as next for hash %d, which also had key: %s\n",entry->key,(int)index,key);
+        }
     }
   }
        
   printf("Listing keys retrieved with hashtbl_keys\n");
   char **keys = hashtbl_keys(hashtbl);
-  char *current_key;
   hash_size count = hashtbl_count(hashtbl);
-  printf("hashtable contains %d entries\n",count);
+  printf("hashtable contains %d entries\n",(int)count);
   for (index = 0; index < count;index++)
      printf("%s\n",keys[index]);
 

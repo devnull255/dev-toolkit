@@ -1,6 +1,6 @@
 #include <hashtable.h>
 #include <string.h>
-
+#include <superhash.h>
 /*********************************************************************
  * Private Implementation of strdup
  *********************************************************************/
@@ -21,9 +21,14 @@ static char *mystrdup(const char *s) {
  * ******************************************************************/
 
 static hash_size def_hashfunc(const char *key) {
-     hash_size hash = 0;
-     while (*key) 
-        hash+= (unsigned char)*key++;
+     const int ret_size = 32;
+     hash_size hash = 0x555555;
+     const int per_char = 7;
+
+     while (*key) {
+        hash ^= (unsigned char)*key++;
+        hash = ( hash << per_char ) | ( hash >> (ret_size - per_char));
+     }
 
      return hash;
 }
@@ -89,7 +94,7 @@ int hashtbl_insert(HASHTBL *hashtbl, const char *key, void *data) {
 
       struct hashnode_s *node;
       hash_size hash = hashtbl->hashfunc(key) % hashtbl->size;
-      /*	fprintf(stderr, "hashtbl_insert() key=%s, hash=%d, data=%s\n", key, hash, (char*)data);*/
+      fprintf(stderr, "hashtbl_insert() key=%s, hash=%d, data=%s\n", key, (int)hash, (char*)data);
       
      node = hashtbl->nodes[hash];
      while(node) {
@@ -182,10 +187,18 @@ int hashtbl_resize(HASHTBL *hashtbl, hash_size size) {
 
 hash_size hashtbl_count(HASHTBL *hashtbl) {
 /* returns count of items in hashtbl */
+  /* printf("entered hashtbl_count\n"); */
   hash_size count = 0, i = 0;
-  for (i = 0;i <= hashtbl->size;i++) 
-      if (hashtbl->nodes[i])
-         count++;
+  struct hashnode_s *current_node;
+  for (i = 0;i < hashtbl->size;i++) 
+      if (hashtbl->nodes[i]) {
+         current_node = hashtbl->nodes[i];
+         while (current_node) {
+           count++;
+           current_node = current_node->next;
+         }
+       }
+  /* printf("hashtable contains %d items\n", (int)count); */
   return count;
 }
 
@@ -194,6 +207,7 @@ char **hashtbl_keys(HASHTBL *hashtbl) {
    char **keys;
    struct hashnode_s *current_node;  
    int i,keycount=0;
+   //printf("Trying to get count of items\n");
    hash_size count = hashtbl_count(hashtbl);
    if (count) {
       if (!( keys = calloc(count + 1,sizeof(char *))))
@@ -203,6 +217,13 @@ char **hashtbl_keys(HASHTBL *hashtbl) {
             current_node = hashtbl->nodes[i];
             keys[keycount] = current_node->key;
             keycount++;
+            while (current_node) {
+               current_node = current_node->next;
+               if (current_node) {
+                   keys[keycount] = current_node->key;
+                   keycount++;
+               }
+              } 
          }
       keys[count] = NULL;
       return keys;
