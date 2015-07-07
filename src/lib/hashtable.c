@@ -33,6 +33,10 @@ static hash_size def_hashfunc(const char *key) {
      return hash;
 }
 
+static hash_size def_hashfunc2(const char *key) {
+   const int ret_size = 32;
+   return SuperFastHash(key,ret_size);
+}
 
 /********************************************************************* 
  * Initialization                                        
@@ -55,7 +59,7 @@ HASHTBL *hashtbl_create(hash_size size, hash_size (*hashfunc) (const char *)) {
    if (hashfunc)
        hashtbl->hashfunc = hashfunc;
    else
-       hashtbl->hashfunc = def_hashfunc;
+       hashtbl->hashfunc = def_hashfunc2;
 
    return hashtbl;
 }
