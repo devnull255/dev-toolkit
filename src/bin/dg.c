@@ -55,6 +55,9 @@ char *gen_rec(char *spec_list_str,char *delim) {
         if (strcmp(spec_list[i],"firstName") == 0)
            fields[i] = randomstring(firstNames);
       else
+        if (strcmp(spec_list[i],"state") == 0)
+           fields[i] = randomstring(states);
+      else
          fields[i] = spec_list[i];
       
    }

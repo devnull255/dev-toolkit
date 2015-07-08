@@ -1,11 +1,11 @@
 test_module() {
   echo "testing $1"
-  $1
+  $*
   if [ $? -eq 0 ]
   then
-    echo "$1 passed."
+    echo "$* passed."
   else
-    echo "$1 failed."
+    echo "$* failed."
   fi
   echo
 }
@@ -22,3 +22,5 @@ test_module tests/test_join
 test_module tests/test_randomstring
 test_module tests/test_hashtable
 test_module tests/test_superhash
+test_module tests/test_sortlist
+test_module bin/dg -n 10 -s numeric:10,alpha:5,state

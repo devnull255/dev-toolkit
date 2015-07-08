@@ -14,6 +14,15 @@ char *lastNames[] = {"Anderson","Baker","Carlson","DeCamp","Edwards",
     "Mabin","Nickerson","O'Reilley","Peterson","Quaid","Rhodes",
     "Stark","Uhura","Vedders","Williams","Yeats","Zane",NULL};
 
+char *states[] = {"AL","AK","AZ","AS","CA","CO","CN",
+                  "DE","FL","GA","HA","ID","IL","IN",
+                  "IA","KS","KY","LA","ME","MD","MA",
+                  "MI","MN","MS","MO","MT","NE","NV",
+                  "NH","NJ","NM","NY","NC","ND","OH",
+                  "OK","OR","PA","RI","SC","SD","TN",
+                  "TX","UT","VT","VA","WA","WV","WI",
+                  "WY",NULL};
+
 char *specTypes[] = {"alpha",
     "numeric",
     "alphanum",
@@ -28,8 +37,7 @@ char *specTypes[] = {"alpha",
     NULL
 };
 
-char *firstName(void);
-char *lastName(void);
+char *state(void);
 char *gen_rec(char *spec_str_list,char *delim);
 char *current_ts(void);
 #endif
