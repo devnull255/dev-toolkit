@@ -11,11 +11,13 @@
 #include <stdio.h>
 #include <unistd.h>
 #include <string.h>
+#include <stdarg.h>
 typedef struct string_list {
    int size;
    char **items;
 } StringList;
-
+int cstring_cmp(const void *a, const void*b);
+char **sortlist(char **strlist);
 int randint(int max_int);
 char randalpha(void);
 char *mkalpha(int len);
@@ -26,9 +28,9 @@ int strllen(char **sl);
 char *join(char **strlist,char *sep);
 int inlist(char *str,char **list);
 char *randomstring(char **list);
-char **makelist(int capacity);
-int list_insert(char **sl,char *s,int pos);
-int list_append(char **sl,char *s);
+char **makelist(size_t capacity,...);
+int list_insert(char *new_string,char **list,int pos);
+int list_append(char *new_string, char **list);
 int grow_list(char **sl,int added_slots);
 char **list_copy(char **sl);
 char *list_pop(char **sl);

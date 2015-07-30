@@ -1,4 +1,3 @@
-#include <sortlist.h>
 #include <devtools.h>
 int cstring_cmp(const void *a, const void*b) {
   /* compares two strings */
