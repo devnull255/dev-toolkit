@@ -113,3 +113,10 @@ Used to insert string *new_string* into string list *list*.  Returns new list le
 ```
 int list_insert(char *new_string,char **list,int pos);
 ```
+
+### list_append
+Used to insert a string *new_string* to the end of a NULL-terminated string list.
+
+```
+int list_append(char *new_string, char **list);
+```

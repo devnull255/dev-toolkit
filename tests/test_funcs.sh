@@ -26,3 +26,4 @@ test_module tests/test_sortlist
 test_module bin/dg -n 10 -s numeric:10,alpha:5,state
 test_module tests/test_makelist
 test_module tests/test_list_insert
+test_module tests/test_list_append
