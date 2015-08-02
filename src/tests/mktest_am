@@ -1,0 +1,15 @@
+#!/bin/ksh
+print -n "bin_PROGRAMS = " > Makefile.am
+for prog in *.c
+do
+  print "${prog%.c} \\"
+done >> Makefile.am
+
+for prog in *.c
+do
+  print "${prog%.c}_SOURCES = $prog"
+  print "${prog%.c}_LDADD = ../lib/libdevtools.la"
+  print
+done >> Makefile.am
+
+  
