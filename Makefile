@@ -3,8 +3,8 @@ BDIR = bin
 LDIR = lib
 LIBS = -ldevtools
 OBJECTS = $(LDIR)/randint.o $(LDIR)/randchar.o $(LDIR)/mkalpha.o $(LDIR)/mknumeric.o\
-	$(LDIR)/mkalphanum.o $(LDIR)/split.o $(LDIR)/strllen.o $(LDIR)/inlist.o $(LDIR)/join.o $(LDIR)/randomstring.o $(LDIR)/hashtable.o $(LDIR)/superhash.o $(LDIR)/sortlist.o $(LDIR)/makelist.o $(LDIR)/list_insert.o $(LDIR)/list_append.o
-TEST_PROGS = tests/test_randint tests/test_randchar tests/test_mkalpha tests/test_mknumeric tests/test_mkalphanum tests/test_split tests/test_strllen tests/test_inlist tests/test_join tests/test_randomstring tests/test_hashtable tests/test_superhash tests/test_sortlist tests/test_makelist tests/test_list_insert tests/test_list_append
+	$(LDIR)/mkalphanum.o $(LDIR)/split.o $(LDIR)/strllen.o $(LDIR)/inlist.o $(LDIR)/join.o $(LDIR)/randomstring.o $(LDIR)/hashtable.o $(LDIR)/superhash.o $(LDIR)/sortlist.o $(LDIR)/makelist.o $(LDIR)/list_insert.o $(LDIR)/list_append.o $(LDIR)/list_copy.o
+TEST_PROGS = tests/test_randint tests/test_randchar tests/test_mkalpha tests/test_mknumeric tests/test_mkalphanum tests/test_split tests/test_strllen tests/test_inlist tests/test_join tests/test_randomstring tests/test_hashtable tests/test_superhash tests/test_sortlist tests/test_makelist tests/test_list_insert tests/test_list_append tests/test_list_copy
 SRC = src
 INC = $(SRC)/include
 CC = cc
@@ -82,6 +82,10 @@ $(LDIR)/list_append.o: $(SRC)/$(LDIR)/list_append.c
 	mkdir -p $(LDIR)
 	$(CC) -c $(SRC)/$(LDIR)/list_append.c -I$(INC) -o $(LDIR)/list_append.o
 
+$(LDIR)/list_copy.o: $(SRC)/$(LDIR)/list_copy.c
+	mkdir -p $(LDIR)
+	$(CC) -c $(SRC)/$(LDIR)/list_copy.c -I$(INC) -o $(LDIR)/list_copy.o
+
 test_programs: $(OBJECTS)
 	mkdir -p $(LDIR)
 	$(CC) $(CFLAGS) -o tests/test_randint $(SRC)/tests/test_randint.c -L$(LDIR) $(LIBS) 
@@ -100,6 +104,7 @@ test_programs: $(OBJECTS)
 	$(CC) $(CFLAGS) $(SRC)/tests/test_makelist.c -L$(LDIR) $(LIBS) -o tests/test_makelist
 	$(CC) $(CFLAGS) $(SRC)/tests/test_list_insert.c -L$(LDIR) $(LIBS) -o tests/test_list_insert
 	$(CC) $(CFLAGS) $(SRC)/tests/test_list_append.c -L$(LDIR) $(LIBS) -o tests/test_list_append
+	$(CC) $(CFLAGS) $(SRC)/tests/test_list_copy.c -L$(LDIR) $(LIBS) -o tests/test_list_copy
 
 alltests: test_programs
 	tests/test_funcs.sh

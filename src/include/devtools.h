@@ -31,7 +31,6 @@ char *randomstring(char **list);
 char **makelist(size_t capacity,...);
 int list_insert(char *new_string,char **list,int pos);
 int list_append(char *new_string, char **list);
-int grow_list(char **sl,int added_slots);
 char **list_copy(char **sl);
 char *list_pop(char **sl);
 #endif

@@ -10,6 +10,7 @@ test_module() {
   echo
 }
 
+export LD_LIBRARY_PATH=`pwd`/lib
 test_module tests/test_randint
 test_module tests/test_randchar
 test_module tests/test_mkalpha
@@ -27,3 +28,4 @@ test_module bin/dg -n 10 -s numeric:10,alpha:5,state
 test_module tests/test_makelist
 test_module tests/test_list_insert
 test_module tests/test_list_append
+test_module tests/test_list_copy
